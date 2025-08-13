@@ -71,7 +71,7 @@ async function loadAll() {
   const eventId = currentEventId || null
   const qs = eventId ? `?eventId=${encodeURIComponent(eventId)}` : ''
   const [m, it, s, t, ev] = await Promise.all([
-    api('api/menus'+qs),
+    api('/api/menus'+qs),
     api('/api/order-items'+qs),
     api('/api/sessions'+qs),
     api('/api/tables'),

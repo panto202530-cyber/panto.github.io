@@ -10,7 +10,7 @@ async function load() {
   if (!currentEventId && events.length>0) currentEventId = events[0].id
   const qs = currentEventId ? `?eventId=${encodeURIComponent(currentEventId)}` : ''
   const [items, menus, sessions, tables] = await Promise.all([
-    api('/api/order-items'+qs), api('api/menus'+qs), api('/api/sessions'+qs), api('/api/tables')
+    api('/api/order-items'+qs), api('/api/menus'+qs), api('/api/sessions'+qs), api('/api/tables')
   ])
   const mById = new Map(menus.map(m=>[m.id,m]))
   const tById = new Map(tables.map(t=>[t.id,t]))
@@ -69,7 +69,7 @@ function renderEventTabs() {
 
 async function renderSummary() {
   const qs = currentEventId ? `?eventId=${encodeURIComponent(currentEventId)}` : ''
-  const [items, menus] = await Promise.all([ api('/api/order-items'+qs), api('api/menus'+qs) ])
+  const [items, menus] = await Promise.all([ api('/api/order-items'+qs), api('/api/menus'+qs) ])
   const mById = new Map(menus.map(m=>[m.id,m]))
   let drinkCount=0, drinkSum=0, foodCount=0, foodSum=0
   items.forEach(it => {
@@ -121,7 +121,7 @@ document.getElementById('downloadCsv')?.addEventListener('click', async () => {
   if (!currentEventId) { alert('営業日を選択してください'); return }
   const qs = `?eventId=${encodeURIComponent(currentEventId)}`
   const [items, menus, sessions, tables] = await Promise.all([
-    api('/api/order-items'+qs), api('api/menus'+qs), api('/api/sessions'+qs), api('/api/tables')
+    api('/api/order-items'+qs), api('/api/menus'+qs), api('/api/sessions'+qs), api('/api/tables')
   ])
   const mById = new Map(menus.map(m=>[m.id,m]))
   const tById = new Map(tables.map(t=>[t.id,t]))

@@ -1,7 +1,7 @@
 const api = (p, opts) => fetch(p, opts).then(r => r.json())
 
 async function loadMenus() {
-  const menus = await api('api/menus')
+  const menus = await api('/api/menus')
   const tbody = document.getElementById('menuT')
   tbody.innerHTML = ''
   menus.forEach(m => {
@@ -20,9 +20,9 @@ async function loadMenus() {
     `
     tr.querySelectorAll('button').forEach(btn => btn.onclick = async () => {
       const act = btn.getAttribute('data-act')
-      if (act === 'toggle') await api(`api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ visible: !m.visible }) })
-      if (act === '+stock') await api(`api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ stockLimit: m.stockLimit + 10 }) })
-      if (act === '-stock') await api(`api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ stockLimit: Math.max(0, m.stockLimit - 10) }) })
+      if (act === 'toggle') await api(`/api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ visible: !m.visible }) })
+      if (act === '+stock') await api(`/api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ stockLimit: m.stockLimit + 10 }) })
+      if (act === '-stock') await api(`/api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ stockLimit: Math.max(0, m.stockLimit - 10) }) })
       await loadMenus()
     })
     tbody.appendChild(tr)
@@ -68,7 +68,7 @@ function bindActions() {
     const stockLimit = Number(document.getElementById('mStock').value||0)
     const category = document.getElementById('mCat').value
     if (!name || !unitPrice) { alert('名称と単価は必須'); return }
-    await api('api/menus', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, unitPrice, stockLimit, visible:true, category }) })
+    await api('/api/menus', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, unitPrice, stockLimit, visible:true, category }) })
     document.getElementById('mName').value = ''
     await loadMenus()
   }
@@ -115,7 +115,7 @@ async function loadEvents() {
 
 async function loadEventMenus() {
   if (!currentEventId) { document.getElementById('eventMenuT').innerHTML=''; return }
-  const menus = await api('api/menus?eventId='+encodeURIComponent(currentEventId))
+  const menus = await api('/api/menus?eventId='+encodeURIComponent(currentEventId))
   const tbody = document.getElementById('eventMenuT')
   tbody.innerHTML = ''
   menus.forEach(m => {
@@ -135,10 +135,10 @@ async function loadEventMenus() {
     `
     tr.querySelectorAll('button').forEach(btn => btn.onclick = async () => {
       const act = btn.getAttribute('data-act')
-      if (act === 'toggle') await api(`api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ visible: !m.visible }) })
-      if (act === '+stock') await api(`api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ stockLimit: m.stockLimit + 10 }) })
-      if (act === '-stock') await api(`api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ stockLimit: Math.max(0, m.stockLimit - 10) }) })
-      if (act === 'delete') { if (confirm('削除しますか？')) { await api(`api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ visible:false }) }) } }
+      if (act === 'toggle') await api(`/api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ visible: !m.visible }) })
+      if (act === '+stock') await api(`/api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ stockLimit: m.stockLimit + 10 }) })
+      if (act === '-stock') await api(`/api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ stockLimit: Math.max(0, m.stockLimit - 10) }) })
+      if (act === 'delete') { if (confirm('削除しますか？')) { await api(`/api/menus/${m.id}`, { method: 'PATCH', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ visible:false }) }) } }
       await loadEventMenus()
     })
     tbody.appendChild(tr)
@@ -151,7 +151,7 @@ async function loadEventMenus() {
     const category = document.getElementById('emCat').value
     const visible = document.getElementById('emVisible').checked
     if (!name || !unitPrice) { alert('名称と単価は必須'); return }
-    await api('api/menus', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, unitPrice, stockLimit, visible, category, eventId: currentEventId }) })
+    await api('/api/menus', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ name, unitPrice, stockLimit, visible, category, eventId: currentEventId }) })
     document.getElementById('emName').value = ''
     await loadEventMenus()
   }

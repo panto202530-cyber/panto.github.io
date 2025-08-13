@@ -20,7 +20,7 @@ async function loadTables() {
 
 async function loadMenus() {
   const qs = currentEventId ? `?eventId=${encodeURIComponent(currentEventId)}` : ''
-  menus = await api('api/menus'+qs)
+  menus = await api('/api/menus'+qs)
   const wrap = document.getElementById('menuList')
   wrap.innerHTML = ''
   menus.forEach(m => {

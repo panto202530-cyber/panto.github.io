@@ -121,12 +121,12 @@ function releaseStockForItems(items) {
 }
 
 // Routes
-app.get('api/menus', (req, res) => {
+app.get('/api/menus', (req, res) => {
   const { eventId } = req.query
   res.json(getVisibleMenus(eventId))
 })
 
-app.post('api/menus', (req, res) => {
+app.post('/api/menus', (req, res) => {
   const { name, unitPrice, stockLimit = 0, visible = true, category, optionGroups = [], eventId } = req.body
   if (!name || typeof unitPrice !== 'number') return res.status(400).json({ error: 'name, unitPrice 必須' })
   const evId = eventId || Object.keys(db.events)[0]
@@ -137,7 +137,7 @@ app.post('api/menus', (req, res) => {
   res.status(201).json(menu)
 })
 
-app.patch('api/menus/:id', (req, res) => {
+app.patch('/api/menus/:id', (req, res) => {
   const id = req.params.id
   const menu = db.menus[id]
   if (!menu) return res.status(404).json({ error: 'not found' })
