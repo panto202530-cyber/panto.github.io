@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>管理 - メニュー/卓/設定</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans JP', Arial; padding: 16px; background: #fff; color: #111; }
+    h2 { margin-top: 24px; }
+    input, button { font-size: 16px; padding: 8px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #eee; padding: 6px; }
+  </style>
+</head>
+<body>
+  <h1>管理</h1>
+  <h2>メニュー（営業日別）</h2>
+  <div style="margin-bottom:8px;">選択: <select id="eventSelect"></select> <button id="refreshEvents">再読込</button></div>
+  <div>
+    <div style="margin:6px 0;">名称 <input id="emName"> 単価 <input id="emPrice" type="number" style="width:120px"> 在庫 <input id="emStock" type="number" style="width:120px"> 種別 <select id="emCat"><option value="drink">ドリンク</option><option value="food">フード</option></select> 表示 <input id="emVisible" type="checkbox" checked> <button id="emAdd">追加</button></div>
+    <table>
+      <thead><tr><th>名称</th><th>単価</th><th>在庫</th><th>種別</th><th>表示</th><th>操作</th></tr></thead>
+      <tbody id="eventMenuT"></tbody>
+    </table>
+  </div>
+
+  <h2>過去の販売メニュー</h2>
+  <div>
+    名称 <input id="mName"> 単価 <input id="mPrice" type="number" value="500" style="width:120px"> 在庫上限 <input id="mStock" type="number" value="100" style="width:120px"> 種別
+    <select id="mCat"><option value="drink">ドリンク</option><option value="food">フード</option></select>
+    <button id="addMenu">追加</button>
+  </div>
+  <table>
+    <thead><tr><th>名称</th><th>単価</th><th>在庫</th><th>種別</th><th>表示</th><th>操作</th></tr></thead>
+    <tbody id="menuT"></tbody>
+  </table>
+  
+
+  <h2>卓管理</h2>
+  <div>ラベル <input id="tLabel"> <button id="addTable">追加</button></div>
+  <table>
+    <thead><tr><th>ID</th><th>ラベル</th><th>有効</th><th>操作</th></tr></thead>
+    <tbody id="tableT"></tbody>
+  </table>
+
+  <h2>アラート設定</h2>
+  <div>
+    初回遅延(秒) <input id="sInit" type="number" value="600" style="width:120px"> 繰返間隔(秒) <input id="sInt" type="number" value="300" style="width:120px"> 最大回数 <input id="sMax" type="number" value="3" style="width:120px"> <button id="saveSettings">保存</button>
+  </div>
+
+  
+
+<script type="module" src="admin.js"></script>
+</body>
+</html>
+
